@@ -12,49 +12,52 @@
       
       <h1> >>>>MicroOS as a desktop OS first things to do<<<< </h1>
 <p>
-grab ISO from https://en.opensuse.org/Portal:MicroOS/Downloads
-Put ISO on a USB drive and start the installation proces.
-Choose if you want to use Gnome or KDE.
+    <br>
+grab ISO from https://en.opensuse.org/Portal:MicroOS/Downloads <br>
+Put ISO on a USB drive and start the installation proces. <br>
+Choose if you want to use Gnome or KDE. <br> <br> <br>
       </p>
   
 <h2> >>>For Gnome make sure you install a browser and unzip via transactional-updates if you want to use Gnome extensions<<< </h2>
 
-<p>
-$ gsettings set org.gnome.software install-bundles-system-wide false
-$ gsettings set org.gnome.software allow-updates false
-$ gsettings set org.gnome.software download-updates false
-$ gsettings set org.gnome.software enable-repos-dialog false
-$ gsettings set org.gnome.software first-run true
-If you want to install for only your user (in /home/~ folder):
-$  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+<p> <br>
+$ gsettings set org.gnome.software install-bundles-system-wide false <br>
+$ gsettings set org.gnome.software allow-updates false  <br>
+$ gsettings set org.gnome.software download-updates false  <br>
+$ gsettings set org.gnome.software enable-repos-dialog false  <br>
+$ gsettings set org.gnome.software first-run true  <br> <br>
+If you want to install for only your user (in /home/~ folder): <br>
+$  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo <br>
+ <br>
+If you want to install for all users (in /var folder): <br>
+$  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  <br>
+ <br>
+and the following:  <br>
 
-If you want to install for all users (in /var folder):
-$  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-and the following: 
-
-$ sudo rm -Rf /var/cache/app-info
-$ sudo transactional-update shell
-  # rpm -e --nodeps libzypp-plugin-appdata
-  # zypper al libzypp-plugin-appdata
-  # exit
-$ sudo reboot
+$ sudo rm -Rf /var/cache/app-info <br>
+$ sudo transactional-update shell  <br>
+  # rpm -e --nodeps libzypp-plugin-appdata <br>
+  # zypper al libzypp-plugin-appdata <br>
+  # exit <br>
+$ sudo reboot <br> 
+     <br>
   </p>
   
   <h2> >>>For KDE<<< </h2>
-    <p>
-In discover enable the flatpak repo
-Normal theme installations don’t work. But you can install themes via a transactional-update shell: (For example the Arc theme and papirus-icon-theme)
-$ sudo transactional-update shell
-  # cd /tmp
-  # wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
-  # wget -qO- https://git.io/papirus-icon-theme-install | sh
-  # exit
-$ sudo reboot
+    <p> <br>
+In discover enable the flatpak repo <br>
+Normal theme installations don’t work. But you can install themes via a transactional-update shell: (For example the Arc theme and papirus-icon-theme)  <br> <br>
+$ sudo transactional-update shell  <br>
+  # cd /tmp  <br>
+  # wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh  <br>
+  # wget -qO- https://git.io/papirus-icon-theme-install | sh  <br>
+  # exit  <br>
+$ sudo reboot  <br>
+         <br>
     </p>
       
     <h2> >>>General stuff<<< </h2>
-      <p>
+      <p> <br>
 I recommend disabling automatic updating and rebooting as well. It’s a cool feature, and we’re thinking about how to have it better integrated into a desktop distribution. For now, I’ve disabled it and I recommend doing the same, at least until you have learned a little bit about it, are more familiar with the idea and with the basics of how it works, and come come-up with the best automatic updating & rebooting strategy for your workflow and use case. So:
 $ sudo systemctl disable --now transactional-update.timer
 $ sudo systemctl disable --now rebootmgr.service
@@ -64,54 +67,59 @@ RebootMgr is dead
 $ sudo rebootmgrctl status
 Error: The name org.opensuse.RebootMgr was not provided by any .service files
 
-$ sudo transactional-update pkg install gnome-remote-desktop bash-completion wget unzip nfs-client autofs gnome-shell-search-provider-nautilus chromium gnome-tweaks
-$ sudo reboot
+$ sudo transactional-update pkg install  <br>
+          gnome-remote-desktop bash-completion wget unzip nfs-client autofs gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
+$ sudo reboot  <br>
+           <br>
       </p>
       
       <h2> >>>Via flatpak install<<< </h2>
         
         <p>
-Firefox
-Libreoffice
-VLC
-etc.
+             <br>
+Firefox  <br>
+Libreoffice  <br>
+VLC <br>
+etc. <br>
+             <br>
         </p>
         
         <h2> >>>If you want to use snapd do the following<<< </h2>
-          </p>
-$ sudo transactional-update shell
-  # zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy
-  # zypper --gpg-auto-import-keys refresh
-  # zypper ref
-  # zypper dup --from snappy
-  # zypper in snapd
-  # exit
-$ sudo reboot
-$ sudo mksubvolume /snap
-$ source /etc/profile
-$ sudo systemctl enable --now snapd
-$ sudo systemctl enable --now snapd.apparmor
-You can install snaps then via the terminal: 
-$ sudo snap install <package-name>
+          <p>
+               <br>
+$ sudo transactional-update shell <br>
+  # zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy <br>
+  # zypper --gpg-auto-import-keys refresh <br>
+  # zypper ref <br>
+  # zypper dup --from snappy <br>
+  # zypper in snapd <br>
+  # exit <br>
+$ sudo reboot <br>
+$ sudo mksubvolume /snap <br>
+$ source /etc/profile <br>
+$ sudo systemctl enable --now snapd <br>
+$ sudo systemctl enable --now snapd.apparmor <br> <br>
+You can install snaps then via the terminal:  <br>
+$ sudo snap install <package-name> <br> <br>
         </p>
         
         <h2> >>>If you want to install virtualbox<<< </h2>
-          <p>
-$ sudo transactional-update shell
-  # zypper ref
-  # zypper in virtualbox-qt
-  # exit
-$ sudo reboot
+          <p> <br>
+$ sudo transactional-update shell <br>
+  # zypper ref <br>
+  # zypper in virtualbox-qt <br>
+  # exit <br>
+$ sudo reboot <br>
           </p>
           
           <h3> >>If you want to install the extension pack for the host. Download it from<< </h3>
-          <p>
-$ sudo transactional-update shell
-  # cd /tmp
-  # LatestVirtualBoxVersion=$(wget -qO - https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT) && wget "https://download.virtualbox.org/virtualbox/${LatestVirtualBoxVersion}/Oracle_VM_VirtualBox_Extension_Pack-${LatestVirtualBoxVersion}.vbox-extpack"
-  # VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-${LatestVirtualBoxVersion}.vbox-extpack
-  # exit
-$ sudo reboot
+          <p> <br>
+$ sudo transactional-update shell <br>
+  # cd /tmp <br>
+  # LatestVirtualBoxVersion=$(wget -qO - https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT) && wget "https://download.virtualbox.org/virtualbox/${LatestVirtualBoxVersion}/Oracle_VM_VirtualBox_Extension_Pack-${LatestVirtualBoxVersion}.vbox-extpack" <br>
+  # VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-${LatestVirtualBoxVersion}.vbox-extpack <br>
+  # exit <br>
+$ sudo reboot <br> <br>
           </p>
           
              
