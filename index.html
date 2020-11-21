@@ -65,7 +65,7 @@ And then let’s check:<br>
 $ sudo rebootmgrctl is-active<br>
           <i>RebootMgr is dead</i><br>
 $ sudo rebootmgrctl status<br>
-          <i>Error: The name org.opensuse.RebootMgr was not provided by any .service files</i><br>
+          <i>Error: The name org.opensuse.RebootMgr was not provided by any .service files</i><br><br><br>
 
 $ sudo transactional-update pkg install  <br>
           gnome-remote-desktop bash-completion wget unzip nfs-client autofs gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
@@ -122,6 +122,19 @@ $ sudo transactional-update shell <br>
 $ sudo reboot <br> <br>
           </p>
           
+            <h2> >>>If you want to install software from OBS<<< </h2>
+          <p> <br>
+              Find what you are looking for on software.opensuse.org<br>
+              Choose the OpenSUSE Tumbleweed repo, but you can't use the 1-click install, as there is no YaST and the 1-click installer has no access to a transactional-update. <br>
+              So for example if we install zerotier. choose a TumbleWeed repository. But click on 'Expert Download'<br>
+               And choose the 'Add repository and install manually' option.
+$ sudo transactional-update shell <br>
+              # zypper addrepo https://download.opensuse.org/repositories/home:alphard:Network:RPM/openSUSE_Tumbleweed/home:alphard:Network:RPM.repo
+  # zypper ref <br>
+  # zypper in zerotier-one <br>
+  # exit <br>
+$ sudo reboot <br>
+          </p>
              
     </body>
 </html>
