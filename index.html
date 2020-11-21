@@ -58,14 +58,14 @@ $ sudo reboot  <br>
       
     <h2> >>>General stuff<<< </h2>
       <p> <br>
-I recommend disabling automatic updating and rebooting as well. It’s a cool feature, and we’re thinking about how to have it better integrated into a desktop distribution. For now, I’ve disabled it and I recommend doing the same, at least until you have learned a little bit about it, are more familiar with the idea and with the basics of how it works, and come come-up with the best automatic updating & rebooting strategy for your workflow and use case. So:
-$ sudo systemctl disable --now transactional-update.timer
-$ sudo systemctl disable --now rebootmgr.service
-And then let’s check:
-$ sudo rebootmgrctl is-active
-RebootMgr is dead
-$ sudo rebootmgrctl status
-Error: The name org.opensuse.RebootMgr was not provided by any .service files
+I recommend disabling automatic updating and rebooting as well. It’s a cool feature, and we’re thinking about how to have it better integrated into a desktop distribution. For now, I’ve disabled it and I recommend doing the same, at least until you have learned a little bit about it, are more familiar with the idea and with the basics of how it works, and come come-up with the best automatic updating & rebooting strategy for your workflow and use case. So:<br>
+$ sudo systemctl disable --now transactional-update.timer<br>
+$ sudo systemctl disable --now rebootmgr.service<br><br>
+And then let’s check:<br>
+$ sudo rebootmgrctl is-active<br>
+          <i>RebootMgr is dead</i><br>
+$ sudo rebootmgrctl status<br>
+          <i>Error: The name org.opensuse.RebootMgr was not provided by any .service files</i><br>
 
 $ sudo transactional-update pkg install  <br>
           gnome-remote-desktop bash-completion wget unzip nfs-client autofs gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
