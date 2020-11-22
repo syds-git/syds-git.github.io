@@ -28,21 +28,13 @@ $ gsettings set org.gnome.software allow-updates false  <br>
 $ gsettings set org.gnome.software download-updates false  <br>
 $ gsettings set org.gnome.software enable-repos-dialog false  <br>
 $ gsettings set org.gnome.software first-run true  <br> <br>
-If you want to install for only your user (in /home/~ folder): <br>
-$  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo <br>
- <br>
-If you want to install for all users (in /var folder): <br>
-$  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  <br>
- <br>
-and the following:  <br>
+    
+    
+$ sudo transactional-update pkg install  <br>
+          gnome-remote-desktop gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
+$ sudo reboot  <br>
+           <br>
 
-$ sudo rm -Rf /var/cache/app-info <br>
-$ sudo transactional-update shell  <br>
-  # rpm -e --nodeps libzypp-plugin-appdata <br>
-  # zypper al libzypp-plugin-appdata <br>
-  # exit <br>
-$ sudo reboot <br> 
-     <br>
   </p>
   
   <h2> >>>For KDE<<< </h2>
@@ -70,9 +62,24 @@ $ sudo rebootmgrctl status<br>
           <i>Error: The name org.opensuse.RebootMgr was not provided by any .service files</i><br><br><br>
 
 $ sudo transactional-update pkg install  <br>
-          gnome-remote-desktop bash-completion wget unzip nfs-client autofs gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
+          bash-completion wget unzip nfs-client autofs<br>
 $ sudo reboot  <br>
            <br>
+          If you want to install flathub for only your user (in /home/~ folder): <br>
+$  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo <br>
+ <br>
+If you want to install flathub for all users (in /var folder): <br>
+$  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  <br>
+ <br>
+and the following:  <br>
+
+$ sudo rm -Rf /var/cache/app-info <br>
+$ sudo transactional-update shell  <br>
+  # rpm -e --nodeps libzypp-plugin-appdata <br>
+  # zypper al libzypp-plugin-appdata <br>
+  # exit <br>
+$ sudo reboot <br> 
+     <br>
       </p>
       
       <h2> >>>Via flatpak install<<< </h2>
