@@ -169,6 +169,19 @@ $ sudo reboot <br>
              My laptop install was missing 2 important packages. TLP for better battery management and ModemManager because my laptop has a WWAN moden.<br>
 $ sudo transactional-update pkg install tlp ModemManager <br>
 $ sudo reboot <br><BR><BR><BR><BR>
+              </p>
+              
+              <h2> bashrc </h2><p><br>
+              nano .bashrc <br>
+              #My custom aliases <br>
+alias shalt="sudo systemctl halt"<br>
+alias sboot="sudo systemctl reboot"<br>
+alias sts="sudo transactional-update shell"<br>
+alias stsc="sudo transactional-update shell --continue"<br>
+alias stdc="sudo transactional-update dup --continue"<br>
+alias std="sudo transactional-update dup"<br>
+alias fsu="sudo flatpak update && sudo snap refresh"<br>
+
           </p>
     </body>
 </html>
