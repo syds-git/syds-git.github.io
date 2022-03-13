@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Use MicroOS as a desktop manual </title>
-        <meta name="description" content="A guide to get started with MicroOS as a desktop.">
+        <meta name="description" content="A PERSONAL guide to get started with MicroOS as a desktop.">
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
@@ -17,35 +17,71 @@
     <br>
 grab ISO from https://en.opensuse.org/Portal:MicroOS/Downloads <br>
 Put ISO on a USB drive and start the installation proces. <br>
-Choose if you want to use Gnome or KDE. <br> <br> <br>
-      </p>
-  
-<h2> >>>For Gnome make sure you install a browser and unzip via transactional-updates if you want to use Gnome extensions<<< </h2>
+Choose if you want to use Gnome or KDE. <br> <br>
+        
+        In what follows: <br> <br>
 
-<p> <br>
-$ gsettings set org.gnome.software install-bundles-system-wide false <br>
-$ gsettings set org.gnome.software allow-updates false  <br>
-$ gsettings set org.gnome.software download-updates false  <br>
-$ gsettings set org.gnome.software enable-repos-dialog false  <br>
-$ gsettings set org.gnome.software first-run true  <br> <br>
-    
-    
-$ sudo transactional-update pkg install  <br>
-          gnome-remote-desktop gnome-shell-search-provider-nautilus chromium gnome-tweaks <br>
-$ sudo reboot  <br>
-           <br>
+  * commands starting with `$` can be copied straight into your terminal prompt. <br>
+  * commands starting with `#` can only be run inside a transactional-update shell. <br>
+<br>
+      </p>
+ 
+        <h2> Ways to install applications </h2> <br>
+You can install applications in several ways: <br>
+
+  * flatpaks from flathub -- the _preferred solution_ <br> 
+  * RPM's via a package manager <br>
+  * RPM's in a toolbox `toolbox -u` <br>
+  * snaps (requires some extra setup to get snapd installed) <br>
+  * AppImages <br>
+
+!!! info <br>
+    The reason _flatpaks_ are preferred is that they provide a self-contained environment offering a pleasant balance between security, dependence integrity and performance. See [here](https://flatpak.org/) for details. <br>
+
+        <h3> Package manager options </h3> <br>
+MicroOS now has a few different package managers as an option during install: <br>
+
+  * transactional-update with zypper `the old default, and still the default for the server version`<br>
+  * Packagekit + tukit `the new default, using pkcon and tukit` <br>
+  * microdnf `an experimental package manager based on dnf`<br>
+
+The reason for changing package managers is because pkcon gives the opportunity to use Gnome Software or Discover for KDE as an installer of RPM's. And currently we are working on the ability to let Gnome Software and Discover perform system upgrades. <br>
+
+        <h4> Transcational-update _old default_  </h4> <br>
+commands for transactional-update are: <br>
+
+  * `sudo transactional-update pkg install package_name` install a rpm package <br>
+  * `sudo transactional-udpdate dup` perform a system upgrade to the next release <br>
+  * `sudo transactional-update shell` open a shell of the next snapshot (you can use zypper commands there) <br>
+
+        <h4> Packagekit + tukit _new default_ </h4><br>
+commands for Packagekit and tukit: <br>
+
+  * `pkcon install package_name` install a rpm package <br>
+  * `pkcon update` perform a system upgrade to the next release <br>
+  * `sudo tukit execute bash` open a shell of the next snapshot (you can use zypper commands there) <br>
+
+        <h4> Microdnf </h4> <br>
+commands for microdnf: <br>
+
+  * `microdnf install package_name` install a rpm package <br>
+  * `microdnf upgrade` perform a system upgrade to the next release<br>
+        
+        <br>
+        
+        <h2> Gnome </h2>  <br>
+        Gnome is currently in a beta stage.
+
+At first boot flatpaks are enabled and some flatpaks are installed by default (Mozilla Firefox, Text Editor, Gnome Calculator and Extention Manager). <br>
+
+After the first boot script finishes you can open Gnome Software to install more software. <br>
 
   </p>
   
-  <h2> >>>For KDE<<< </h2>
+  <h2>  KDE </h2>
     <p> <br>
 In discover enable the flatpak repo <br><br>
         
-        for USB disks <br>
-        $ sudo transactional-update pkg install udisks2 <br>
-$ sudo reboot  <br>
-           <br>
-
 Normal theme installations don’t work. But you can install themes via a transactional-update shell: (For example the Arc theme and papirus-icon-theme)  <br> <br>
 $ sudo transactional-update shell  <br>
   # cd /tmp  <br>
@@ -70,36 +106,13 @@ $ sudo reboot  <br>
     </p>
       
     <h2> >>>General stuff<<< </h2>
-      <p> <br>
-I recommend disabling automatic updating and rebooting as well. It’s a cool feature, and we’re thinking about how to have it better integrated into a desktop distribution. For now, I’ve disabled it and I recommend doing the same, at least until you have learned a little bit about it, are more familiar with the idea and with the basics of how it works, and come come-up with the best automatic updating & rebooting strategy for your workflow and use case. So:<br>
-$ sudo systemctl disable --now transactional-update.timer<br>
-$ sudo systemctl disable --now rebootmgr.service<br><br>
-And then let’s check:<br>
-$ sudo rebootmgrctl is-active<br>
-          <i>RebootMgr is dead</i><br>
-$ sudo rebootmgrctl status<br>
-          <i>Error: The name org.opensuse.RebootMgr was not provided by any .service files</i><br><br><br>
-
-$ sudo transactional-update pkg install  <br>
-          bash-completion wget unzip nfs-client autofs<br>
-$ sudo reboot  <br>
-           <br>
-          If you want to install flathub for only your user (in /home/~ folder): <br>
+      <p> <br>If you want to install flathub for only your user (in /home/~ folder): <br>
 $  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo <br>
  <br>
 If you want to install flathub for all users (in /var folder): <br>
 $  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  <br>
  <br>
-and the following:  <br>
 
-$ sudo rm -Rf /var/cache/app-info <br>
-$ sudo transactional-update shell  <br>
-  # rpm -e --nodeps libzypp-plugin-appdata <br>
-  # zypper al libzypp-plugin-appdata <br>
-  # exit <br>
-$ sudo reboot <br> 
-     <br>
-      </p>
       
       <h2> >>>Via flatpak install<<< </h2>
         
@@ -113,7 +126,7 @@ etc. <br>
         </p>
         
         <h2> >>>If you want to use snapd do the following<<< </h2>
-          <p>
+          <p> Make sure you've disabled SELinux and enabled AppArmor. Otherwise it will NOT work.
                <br>
 $ sudo transactional-update shell <br>
   # zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy <br>
@@ -175,14 +188,55 @@ $ sudo reboot <br><BR><BR><BR><BR>
               <h2> bashrc </h2><p><br>
               nano .bashrc <br>
               #My custom aliases <br>
-alias shalt="sudo systemctl halt"<br>
-alias sboot="sudo systemctl reboot"<br>
-alias sts="sudo transactional-update shell"<br>
-alias stsc="sudo transactional-update shell --continue"<br>
-alias stdc="sudo transactional-update dup --continue"<br>
-alias std="sudo transactional-update dup"<br>
-alias fsu="sudo flatpak update && sudo snap refresh"<br>
+alias shalt="sudo systemctl halt" <br>
+alias sboot="sudo systemctl reboot" <br>
+alias pu="pkcon update" <br>
+alias steb="sudo tukit execute bash" <br>
+alias sts="sudo transactional-update shell" <br>
+alias stsc="sudo transactional-update shell --continue" <br>
+alias stdc="sudo transactional-update dup --continue" <br>
+alias std="sudo transactional-update dup" <br>
+alias sfu="sudo flatpak update -y && flatpak update -y" <br>
+alias fsu="sudo flatpak update -y && flatpak update -y && sudo snap refresh" <br>
+alias dfs="pkcon update && sudo flatpak update -y && flatpak update -y && sudo snap refresh" <br>
 
-          </p>
+              
+              <h2> Other places: </h2> 
+              https://opensuse.github.io/openSUSE-docs-revamped-temp/microos_getting_started/
+https://dariofaggioli.wordpress.com/2020/10/16/opensuse-microos-as-your-desktop-install/
+https://dariofaggioli.wordpress.com/2021/06/18/microos-as-your-desktop-prime-time/
+              
+              <h2> first boot commands: </h2>
+              sudo tukit execute bash <br> 
+              groupadd vboxusers<br> 
+groupadd wheel<br>
+groupadd docker<br>
+usermod -a -G wheel $USER <br>
+usermod -a -G vboxusers $USER <br>
+usermod -a -G docker $USER <br>
+echo "%wheel  ALL = (root) NOPASSWD:ALL" > /etc/sudoers.d/wheel <BR>
+echo "$USER:100000:65536" > /etc/subuid <BR>
+echo "$USER:100000:65536" > /etc/subgid <BR>
+exit <BR>
+         
+              <h2> toolbox GUI applications </h2>               <BR>
+              toolbox enter <BR>
+sudo zypper ref && sudo zypper dup <BR>
+sudo zypper in adwaita-icon-theme xorg-x11-fonts libX11-xcb1 gsettings-desktop-schemas <BR>
+sudo gdk-pixbuf-query-loaders-64 --update-cache <BR>
+<BR>
+This is what I use for opening Vivaldi inside toolbox: <BR>
+<BR>
+nano ~/.local/share/applications/toolboxVivaldi.desktop <BR>
+              <BR>
+              [Desktop Entry] <BR>
+Type=Application <BR>
+Name=tool Vivaldi <BR>
+Exec=toolbox run vivaldi <BR>
+Icon=org.gnome.Nautilus <BR>
+Terminal=true <BR>
+
+              
+              </p>
     </body>
 </html>
